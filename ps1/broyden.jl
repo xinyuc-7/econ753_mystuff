@@ -1,8 +1,4 @@
-using Plots
-using Printf
-using LinearAlgebra
-using NonlinearSolve
-
+using Plots, Printf, LinearAlgebra, NonlinearSolve
 
 # Define the function f! and its initial guess
 function f!(F, x)
@@ -63,3 +59,24 @@ x0 = [2.0, 1.0]
 # Solve the system
 solution = broyden(f!, jaco, x0)
 println("Solution: $solution")
+
+
+function betterbroyden(f!, jaco, x_initial; tolerance = 1E-7, maxiter = 1000)
+    x_old = x_initial
+    jaco_old = jaco(x_initial)
+    error = Inf
+    iter = 1
+
+    while error > tolerance && iter <= maxiter
+        dx = -f!(x_initial) \ jaco_old
+
+        x_new = x_old .+ dx
+
+        df = f!(x_new) - f!(x_old)
+
+        jaco_new = jaco_old .+ 
+
+
+    end
+    
+end
